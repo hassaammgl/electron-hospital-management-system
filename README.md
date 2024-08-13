@@ -1,4 +1,4 @@
-# hospital-management-system
+# electron
 
 An Electron application with React
 
