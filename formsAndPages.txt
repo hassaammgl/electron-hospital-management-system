@@ -1,0 +1,2 @@
+Signup page = Admin || Patient only
+login_page = Patient Login || Docter Login || Admin Login

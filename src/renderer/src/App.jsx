@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { pageContext } from './context/pageContext'
 import { Header } from './components'
-import { Display, Dashboard, Home } from './pages'
+import { Display, Dashboard, Home, Signup } from './pages'
 
 function App() {
-  const [page, setPage] = useState('Dashboard')
+  const [page, setPage] = useState('SignUp')
 
   return (
     <pageContext.Provider value={{ page, setPage }}>
@@ -13,7 +13,8 @@ function App() {
         <Display
           pages={[
             { title: 'Home', component: Home },
-            { title: 'Dashboard', component: Dashboard }
+            { title: 'Dashboard', component: Dashboard },
+            { title: 'SignUp', component: Signup }
           ]}
         />
       </div>
