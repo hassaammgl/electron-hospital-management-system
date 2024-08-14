@@ -18,13 +18,15 @@
     "build:linux": "npm run build && electron-builder --linux"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@electron-toolkit/preload": "^3.0.1",
     "@electron-toolkit/utils": "^3.0.0",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
     "electron-updater": "^6.3.3",
-    "framer-motion": "^11.3.24"
+    "framer-motion": "^11.3.24",
+    "mongoose": "^8.5.2"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config": "^1.0.2",
