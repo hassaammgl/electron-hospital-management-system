@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { pageContext } from './context/pageContext'
 import { Header } from './components'
-import { Display, Dashboard, Home, Signup } from './pages'
+import { Display, Dashboard, Home, Signup, Login } from './pages'
 
 function App() {
   const [page, setPage] = useState('SignUp')
@@ -14,7 +14,8 @@ function App() {
           pages={[
             { title: 'Home', component: Home },
             { title: 'Dashboard', component: Dashboard },
-            { title: 'SignUp', component: Signup }
+            { title: 'SignUp', component: Signup },
+            { title: 'Login', component: Login }
           ]}
         />
       </div>

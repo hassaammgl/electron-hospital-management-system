@@ -7,32 +7,23 @@ import {
   useToast,
   Button,
   Heading,
-  Center,
-  Radio,
-  RadioGroup
+  Center
 } from '@chakra-ui/react'
 import { useState, useContext } from 'react'
-import { AtSignIcon, CalendarIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
+import { AtSignIcon, ViewIcon, ViewOffIcon } from '@chakra-ui/icons'
 import { MdOutlinePassword } from 'react-icons/md'
 import { IoMdPerson } from 'react-icons/io'
 import { FaPhone } from 'react-icons/fa6'
-import { BiSolidBabyCarriage } from 'react-icons/bi'
 import { pageContext } from '../context/pageContext'
 import LinkButton from '../components/LinkButton'
 
-const Signup = () => {
+const Login = () => {
   const [show, setShow] = useState(false)
   // cradentials
-  const [role, setRole] = useState('Patient')
-  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [username, setUsername] = useState('')
-  const [dob, setDob] = useState('')
-  const [age, setAge] = useState(0)
-  const [gender, setGender] = useState('')
 
   // context api
   const { setPage } = useContext(pageContext)
@@ -44,60 +35,31 @@ const Signup = () => {
   const handleClick = () => setShow(!show)
 
   const handleSubmit = async () => {
-    if (
-      role === '' ||
-      name === '' ||
-      email === '' ||
-      phoneNumber === '' ||
-      password === '' ||
-      confirmPassword === '' ||
-      username === '' ||
-      dob === '' ||
-      age === 0 ||
-      age === '' ||
-      gender === ''
-    ) {
-      toast({
-        title: 'Error',
-        description: 'Please fill all the fields.',
-        status: 'error',
-        duration: 3000,
-        isClosable: true
-      })
-      return
-    }
-
     toast({
-      title: 'Creating Account',
-      description: "We're creating your account.",
+      title: 'Account Login in Progress!!',
+      description: 'Login in your account.',
       status: 'loading',
       duration: 9000,
       isClosable: true
     })
     await window.api
-      .signup({
-        role,
-        name,
+      .login({
         email,
         phoneNumber,
         password,
-        confirmPassword,
-        username,
-        dob,
-        age,
-        gender
+        username
       })
       .then((response) => {
         console.log(response)
         toast.closeAll()
         toast({
-          title: 'Account Created!!',
+          title: 'Login Successfull!!',
           description: response.message,
           status: 'success',
           duration: 9000,
           isClosable: true
         })
-        setPage('Login')
+        // setPage('Dashboard')
       })
       .catch((error) => {
         toast.closeAll()
@@ -123,21 +85,9 @@ const Signup = () => {
       scrollBehavior={'smooth'}
     >
       <Heading as={'h1'} mb={4} size={'xl'}>
-        Signup
+        Login
       </Heading>
       <Stack width={80} justifyContent={'center'} alignItems={'center'} spacing={6}>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={'text'}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Enter Name"
-            required={true}
-          />
-          <InputLeftElement width="2.5rem">
-            <IoMdPerson />
-          </InputLeftElement>
-        </InputGroup>
         <InputGroup size="md">
           <Input
             pr="4.5rem"
@@ -148,30 +98,6 @@ const Signup = () => {
           />
           <InputLeftElement width="2.5rem">
             <FaPhone />
-          </InputLeftElement>
-        </InputGroup>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={'number'}
-            onChange={(e) => setAge(e.target.value)}
-            placeholder="Enter Age"
-            required={true}
-          />
-          <InputLeftElement width="2.5rem">
-            <BiSolidBabyCarriage />
-          </InputLeftElement>
-        </InputGroup>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={'date'}
-            onChange={(e) => setDob(e.target.value)}
-            placeholder="Enter Date of birth"
-            required={true}
-          />
-          <InputLeftElement width="2.5rem">
-            <CalendarIcon />
           </InputLeftElement>
         </InputGroup>
         <InputGroup size="md">
@@ -199,13 +125,7 @@ const Signup = () => {
             <AtSignIcon />
           </InputLeftElement>
         </InputGroup>
-        <RadioGroup width={'100%'} onChange={setGender} value={gender}>
-          Gender:
-          <Stack paddingLeft={10} spacing={5} direction="row">
-            <Radio value="Male">Male</Radio>
-            <Radio value="Female">Female</Radio>
-          </Stack>
-        </RadioGroup>
+
         <InputGroup size="md">
           <Input
             pr="4.5rem"
@@ -223,36 +143,12 @@ const Signup = () => {
             <MdOutlinePassword />
           </InputLeftElement>
         </InputGroup>
-        <InputGroup size="md">
-          <Input
-            pr="4.5rem"
-            type={show ? 'text' : 'password'}
-            placeholder="Enter Confirm password"
-            required={true}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-          <InputRightElement width="2.5rem">
-            <Button h="2rem" size="sm" onClick={handleClick}>
-              {show ? <ViewOffIcon /> : <ViewIcon />}
-            </Button>
-          </InputRightElement>
-          <InputLeftElement width="2.5rem">
-            <MdOutlinePassword />
-          </InputLeftElement>
-        </InputGroup>
-        <RadioGroup width={'100%'} onChange={setRole} value={role}>
-          Role:
-          <Stack paddingLeft={10} spacing={5} direction="row">
-            <Radio value="Patient">Patient</Radio>
-            <Radio value="Admin">Admin</Radio>
-          </Stack>
-        </RadioGroup>
         <Button colorScheme={'blue'} onClick={handleSubmit}>
-          Sign Up
+          Login
         </Button>
         <Stack mt={4}>
           <Center>
-            Already have an account? <LinkButton colorScheme={'red'}>Login</LinkButton>
+            Don't have an account? <LinkButton colorScheme={'red'}>SignUp</LinkButton>
           </Center>
         </Stack>
       </Stack>
@@ -260,4 +156,4 @@ const Signup = () => {
   )
 }
 
-export default Signup
+export default Login

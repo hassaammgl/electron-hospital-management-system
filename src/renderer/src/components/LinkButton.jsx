@@ -1,15 +1,16 @@
+/* eslint-disable react/prop-types */
 import { Button } from '@chakra-ui/react'
 import { pageContext } from '../context/pageContext'
 import { useContext } from 'react'
 
-const LinkButton = ({ children, props }) => {
+const LinkButton = ({ children, colorScheme }) => {
   const { setPage } = useContext(pageContext)
   const handleButtonClick = () => {
     setPage(children)
     console.log(children)
   }
   return (
-    <Button {...props} onClick={handleButtonClick}>
+    <Button colorScheme={colorScheme} onClick={handleButtonClick}>
       {children}
     </Button>
   )

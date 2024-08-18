@@ -8,7 +8,7 @@ const Display = ({ pages }) => {
 
   return (
     <>
-      {pages.map((pg, i) => {
+      {pages?.map((pg, i) => {
         return <>{pg.title === page ? <pg.component key={i} /> : null}</>
       })}
     </>
