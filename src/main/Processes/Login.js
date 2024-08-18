@@ -1,6 +1,8 @@
 import { ipcMain } from 'electron'
 import { database } from '../../../database'
 import { User } from '../../../database/models'
+import passwordHash from 'password-hash'
+import moment from 'moment'
 
 export const login = () => {
   return ipcMain.on('login', async (event, data) => {
@@ -9,27 +11,20 @@ export const login = () => {
 
     try {
       await database.connectDb()
-      const isExist = await User.findOne({ email, phoneNumber, password, username })
-      console.log(isExist)
+      const isExist = await User.findOne({ email, phoneNumber, username })
+      console.log('user is exist or ', isExist)
 
-      if (
-        isExist.username === username &&
-        isExist.email === email &&
-        isExist.phoneNumber === phoneNumber
-      ) {
+      const verifyPassword = passwordHash.verify(password, isExist?.password)
+      console.log('verifyPassword = ', verifyPassword)
+
+      isExist.lastLogin.push(moment().format('MMMM Do YYYY, h:mm:ss a'))
+      isExist.updatedAt = moment().format('MMMM Do YYYY, h:mm:ss a')
+      if (verifyPassword === true) {
+        console.log('Password Matched')
+        await isExist.save()
         event.reply('login-response', {
           success: true,
-          message: 'Login successfull!!',
-          data: {
-            role: isExist.role,
-            name: isExist.name,
-            email: isExist.email,
-            phoneNumber: isExist.phoneNumber,
-            username: isExist.username,
-            dob: isExist.dob,
-            age: isExist.age,
-            gender: isExist.gender
-          }
+          message: 'Login successfull!!'
         })
       } else {
         event.reply('login-response', {

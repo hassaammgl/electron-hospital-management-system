@@ -59,7 +59,7 @@ const Login = () => {
           duration: 9000,
           isClosable: true
         })
-        // setPage('Dashboard')
+        setPage('Dashboard')
       })
       .catch((error) => {
         toast.closeAll()

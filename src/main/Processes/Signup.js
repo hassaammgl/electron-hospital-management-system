@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron'
 import { database } from '../../../database'
 import { User } from '../../../database/models'
+import passwordHash from 'password-hash'
 
 export const signup = () => {
   return ipcMain.on('signup', async (event, data) => {
@@ -20,13 +21,15 @@ export const signup = () => {
           return
         }
       }
+      const newPassword = passwordHash.generate(password)
+      console.log(newPassword)
 
       const newUser = User({
         role,
         name,
         email,
         phoneNumber,
-        password,
+        password: newPassword,
         username,
         dob,
         age,
