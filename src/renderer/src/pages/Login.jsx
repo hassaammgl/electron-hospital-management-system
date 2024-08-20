@@ -15,7 +15,9 @@ import { MdOutlinePassword } from 'react-icons/md'
 import { IoMdPerson } from 'react-icons/io'
 import { FaPhone } from 'react-icons/fa6'
 import { pageContext } from '../context/pageContext'
-import LinkButton from '../components/LinkButton'
+import { LinkButton } from '../components'
+import { useDispatch } from 'react-redux'
+import { addUserDetails } from '../redux/user/userSlice'
 
 const Login = () => {
   const [show, setShow] = useState(false)
@@ -30,6 +32,8 @@ const Login = () => {
 
   // toast setup
   const toast = useToast()
+  // redux toolkit setup
+  const dispatch = useDispatch()
 
   // functions
   const handleClick = () => setShow(!show)
@@ -59,6 +63,24 @@ const Login = () => {
           duration: 9000,
           isClosable: true
         })
+        const data = JSON.parse(response.data)
+        localStorage.setItem('token', data.token)
+        console.log(data)
+        dispatch(
+          addUserDetails({
+            name: data.name,
+            role: data.role,
+            lastLogin: data.lastLogin,
+            updatedAt: data.updatedAt,
+            _id: data._id,
+            phoneNumber: data.phoneNumber,
+            email: data.email,
+            username: data.username,
+            dob: data.dob,
+            age: data.age,
+            gender: data.gender
+          })
+        )
         setPage('Dashboard')
       })
       .catch((error) => {
@@ -148,7 +170,7 @@ const Login = () => {
         </Button>
         <Stack mt={4}>
           <Center>
-            Don't have an account? <LinkButton colorScheme={'red'}>SignUp</LinkButton>
+            Don&apos;t have an account? <LinkButton colorScheme={'red'}>SignUp</LinkButton>
           </Center>
         </Stack>
       </Stack>

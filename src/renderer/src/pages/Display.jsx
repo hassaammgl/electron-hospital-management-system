@@ -1,5 +1,5 @@
 import { pageContext } from '../context/pageContext'
-import { useContext } from 'react'
+import { useContext, Fragment } from 'react'
 
 // eslint-disable-next-line react/prop-types
 const Display = ({ pages }) => {
@@ -9,7 +9,7 @@ const Display = ({ pages }) => {
   return (
     <>
       {pages?.map((pg, i) => {
-        return <>{pg.title === page ? <pg.component key={i} /> : null}</>
+        return <>{pg.title === page ? <pg.component key={i} /> : <Fragment key={i}></Fragment>}</>
       })}
     </>
   )
