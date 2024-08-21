@@ -2,9 +2,7 @@ import { app, shell, BrowserWindow } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-// import { database } from '../../database'
-import { login, signup } from './Processes'
-// import { User } from '../../database/models'
+import { login, signup, checkLogin } from './Processes'
 
 function createWindow() {
   // Create the browser window.
@@ -78,3 +76,4 @@ app.on('window-all-closed', () => {
 
 signup()
 login()
+checkLogin()

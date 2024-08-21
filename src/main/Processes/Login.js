@@ -60,3 +60,20 @@ export const login = () => {
     }
   })
 }
+
+export const checkLogin = () => {
+  return ipcMain.on('login', async (event, data) => {
+    console.log('Checking login', data)
+
+    try {
+      await database.connectDb()
+    } catch (error) {
+      console.log(error)
+      event.reply('login-response', {
+        success: false,
+        message: `Failed to login \n ${error.message}`,
+        data: {}
+      })
+    }
+  })
+}

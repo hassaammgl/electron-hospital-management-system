@@ -33,5 +33,19 @@ export const api = {
         }
       })
     })
+  },
+  check_login: async (token) => {
+    console.log(token)
+
+    return new Promise((resolve, reject) => {
+      ipcRenderer.send('check-login', token)
+      ipcRenderer.on('check-login-response', (event, res) => {
+        if (res.success) {
+          resolve(res)
+        } else {
+          reject(res)
+        }
+      })
+    })
   }
 }

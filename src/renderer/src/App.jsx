@@ -4,6 +4,10 @@ import { Header } from './components'
 import { Display, Dashboard, Home, Signup, Login } from './pages'
 
 function App() {
+  const getToken = localStorage.getItem('token')
+  console.log(getToken)
+  window.api.check_login(getToken)
+
   const [page, setPage] = useState('SignUp')
 
   return (
